@@ -13,6 +13,6 @@ void limpar_stdin();
 
 void limpar_user_input();
 
-void ler_input(char* formato, int* var);
+void ler_input(char* formato, void* var);
 
 #endif /* AUX_H_ */

@@ -17,5 +17,4 @@ void limpar_user_input()
 void ler_input(char* formato, void* var)
 {
     scanf(formato, var);
-    limpar_user_input();
 }

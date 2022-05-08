@@ -12,13 +12,13 @@ int criar_novo_produto(Produto* produto)
     produto->nome[strcspn(produto->nome, "\n")] = 0; /* Remover newline */
 
     printf("\nPorfavor insira o preço do produto... ");
-    scanf("%f", &produto->preco_unitario);
+    ler_input("%f", &produto->preco_unitario);
 
     printf("\nPorfavor insira o codigo do fornecedor... ");
-    scanf("%u", &produto->id_fornecedor);
+    ler_input("%u", &produto->id_fornecedor);
 
     printf("\nPorfavor insira a quantidade de stock minimo... ");
-    scanf("%d", &produto->quantidade_minima_stock);
+    ler_input("%d", &produto->quantidade_minima_stock);
 
     produto->ativo = 1;
 

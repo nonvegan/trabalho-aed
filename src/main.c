@@ -28,6 +28,7 @@ int main()
 
         int input_menu;
         ler_input("%d", &input_menu);
+        limpar_user_input();
 
         switch (input_menu) {
         case 0:
@@ -50,7 +51,8 @@ int main()
             printf("Porfavor insira o código do produto que pretende remover...");
 
             int input_codigo;
-            ler_input("%d", &input_menu);
+            ler_input("%d", &input_codigo);
+            limpar_user_input();
 
             if(input_codigo < 0 || input_codigo >= contador_produtos) {
                 printf("Erro: Este produto não existe\n\n");
