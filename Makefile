@@ -1,6 +1,6 @@
 C=gcc
 NAME=main
-SRC=src/main.c
+SRC=src/main.c src/produto.c src/fornecedor.c src/movimento.c src/aux.c
 CFLAGS= -ansi -Wall -Wextra -pedantic
 LIBS=
 

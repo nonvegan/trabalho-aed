@@ -1,114 +1,17 @@
 #include <stdio.h>
 #include <string.h>
 
-#define ENTRADA_PRODUTO 0
-#define SAIDA_PRODUTO 1
-
-typedef struct {
-    unsigned int ano;
-    unsigned int mes;
-    unsigned int dia;
-} Data;
-
-typedef struct {
-    unsigned int id;
-    char nome[50];
-} Fornecedor;
-
-typedef struct {
-    unsigned int id;
-    unsigned int id_fornecedor;
-    char nome[50];
-    float preco_unitario;
-    int quantidade_stock;
-    int quantidade_minima_stock;
-} Produto;
-
-typedef struct {
-    unsigned int id;
-    unsigned int id_produto;
-    unsigned int tipo;
-    unsigned int quantidade;
-    Data data;
-} Movimento;
-
-void print_movimento(Movimento* mov)
-{
-    Data data = mov->data;
-    printf("id -> %u,  %u-%u-%u: id_produto -> %u, %s de %u produtos\n", mov->id, data.ano,
-        data.mes, data.dia, mov->id_produto, mov->tipo ? "Saída" : "Entrada", mov->quantidade);
-}
-
-void print_lista_produtos(Produto* lista_produtos, int n)
-{
-    int x = 116;
-    while (x--) {
-        printf("%c", '#');
-    }
-    putchar('\n');
-    printf("# %*s | %*s | %*s | %*s | %*s | %*s #\n",
-        -6, "Código",
-        -50, "Nome",
-        -10, "Fornecedor",
-        -14, "Preço Unitário",
-        -5, "Stock",
-        -10, "Stock Minímo");
-
-    for (int i = 0; i < n; i++)
-        printf("# %*u | %*s | %*u | %*.3f€ | %*d | %*d #\n",
-            -6, lista_produtos[i].id,
-            -50, lista_produtos[i].nome,
-            -10, lista_produtos[i].id_fornecedor,
-            -13, lista_produtos[i].preco_unitario,
-            -5, lista_produtos[i].quantidade_stock,
-            -12, lista_produtos[i].quantidade_minima_stock);
-    x = 116;
-    while (x--) {
-        printf("%c", '#');
-    }
-    printf("\n\n");
-}
-
-void limpar_stdin()
-{
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-}
-
-void limpar_user_input()
-{
-    printf("\033[A\33[2K\n");
-}
-
-int criar_novo_produto(Produto* produto, int* numero_total_produtos)
-{
-    printf("Porfavor insira o nome do produto... ");
-    limpar_stdin();
-    fgets(produto->nome, 50, stdin);
-    produto->nome[strcspn(produto->nome, "\n")] = 0; /* Remover newline */
-
-    printf("\nPorfavor insira o preço do produto... ");
-    scanf("%f", &produto->preco_unitario);
-
-    printf("\nPorfavor insira o codigo do fornecedor... ");
-    scanf("%u", &produto->id_fornecedor);
-
-    printf("\nPorfavor insira a quantidade de stock minimo... ");
-    scanf("%d", &produto->quantidade_minima_stock);
-
-    if (0) { /* Validação de input */
-        return -1;
-    };
-    return 0;
-}
+#include "aux.h"
+#include "fornecedor.h"
+#include "movimento.h"
+#include "produto.h"
 
 int main()
 {
     /* Data data = {2022, 3, 28}; */
     /* Movimento mov = {1, 5, ENTRADA_PRODUTO, 6, data}; */
 
-    Produto lista_produtos[100] = {0};
+    Produto lista_produtos[100] = { 0 };
     int contador_produtos = 0;
 
     int quit = 0;
@@ -123,26 +26,40 @@ int main()
         printf("6 - Listar produtos\n");
         printf("0 - Sair\n");
 
-        int input;
-        scanf("%d", &input);
-        limpar_user_input();
+        int input_menu;
+        ler_input("%d", &input_menu);
 
-        switch (input) {
+        switch (input_menu) {
         case 0:
             quit = 1;
             break;
         case 1:
             Produto novo_produto = { 0 };
-            if (criar_novo_produto(&novo_produto, &contador_produtos))
-                printf("\nOcorreu um erro ao adicionar o produto, porfavor tente novamente\n\n");
+
+            if (criar_novo_produto(&novo_produto))
+                printf("Ocorreu um erro ao adicionar o produto, porfavor tente novamente\n\n");
             else {
                 unsigned int id = contador_produtos++;
                 novo_produto.id = id;
                 lista_produtos[id] = novo_produto;
-                printf("\nNovo produto adicionado com sucesso\n\n");
+                printf("Novo produto adicionado com sucesso:\n");
             }
-            print_lista_produtos(lista_produtos, 1);
+            print_lista_produtos(lista_produtos, contador_produtos);
             break;
+        case 4:
+            printf("Porfavor insira o código do produto que pretende remover...");
+
+            int input_codigo;
+            ler_input("%d", &input_menu);
+
+            if(input_codigo < 0 || input_codigo >= contador_produtos) {
+                printf("Erro: Este produto não existe\n\n");
+            } else {
+                lista_produtos[input_codigo].ativo = 0;
+                printf("Produto removido com sucesso!\n\n");
+            }
+            break;
+
         case 6:
             if (contador_produtos == 0) {
                 printf("Não existem produtos\n");
