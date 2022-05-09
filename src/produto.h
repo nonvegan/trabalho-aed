@@ -8,7 +8,7 @@ typedef struct {
     float preco_unitario;
     int quantidade_stock;
     int quantidade_minima_stock;
-    int ativo;
+    int removido;
 } Produto;
 
 int criar_novo_produto(Produto* produto);

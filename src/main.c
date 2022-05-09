@@ -20,10 +20,12 @@ int main()
         printf("Selecione a operação que pretende executar\n");
         printf("1 - Adicionar produto\n");
         printf("2 - Editar produto\n");
-        printf("3 - Consultar produto\n");
-        printf("4 - Remover produto\n");
-        printf("5 - Adicionar produto\n");
-        printf("6 - Listar produtos\n");
+        printf("3 - Remover produto\n");
+        printf("4 - Listar produtos\n");
+        printf("5 - Consultar produto\n");
+        printf("6 - Adicionar Fornecedor\n");
+        printf("7 - Adicionar Movimento\n");
+        printf("8 - Consultar Movimentos\n");
         printf("0 - Sair\n");
 
         int input_menu;
@@ -31,46 +33,77 @@ int main()
         limpar_user_input();
 
         switch (input_menu) {
-        case 0:
-            quit = 1;
-            break;
-        case 1:
-            Produto novo_produto = { 0 };
-
-            if (criar_novo_produto(&novo_produto))
-                printf("Ocorreu um erro ao adicionar o produto, porfavor tente novamente\n\n");
-            else {
-                unsigned int id = contador_produtos++;
-                novo_produto.id = id;
-                lista_produtos[id] = novo_produto;
-                printf("Novo produto adicionado com sucesso:\n");
-            }
-            print_lista_produtos(lista_produtos, contador_produtos);
-            break;
-        case 4:
-            printf("Porfavor insira o código do produto que pretende remover...");
-
-            int input_codigo;
-            ler_input("%d", &input_codigo);
-            limpar_user_input();
-
-            if(input_codigo < 0 || input_codigo >= contador_produtos) {
-                printf("Erro: Este produto não existe\n\n");
-            } else {
-                lista_produtos[input_codigo].ativo = 0;
-                printf("Produto removido com sucesso!\n\n");
-            }
-            break;
-
-        case 6:
-            if (contador_produtos == 0) {
-                printf("Não existem produtos\n");
+            case 0:
+                quit = 1;
                 break;
-            }
-            print_lista_produtos(lista_produtos, contador_produtos);
-            break;
-        default:
-            printf("Não implementado\n");
+
+            case 1:
+                {
+                    Produto novo_produto = { 0 };
+                    if (criar_novo_produto(&novo_produto))
+                        printf("Ocorreu um erro ao adicionar o produto, porfavor tente novamente\n\n");
+                    else {
+                        unsigned int id = contador_produtos++;
+                        novo_produto.id = id;
+                        lista_produtos[id] = novo_produto;
+                        printf("Novo produto adicionado com sucesso:\n");
+                    }
+                    print_lista_produtos(lista_produtos, contador_produtos);
+                }
+                break;
+
+            case 2:
+                printf("Porfavor insira o código do produto que editar... ");
+
+                int input_codigo_editar;
+                ler_input("%d", &input_codigo_editar);
+
+                if(input_codigo_editar < 0 || input_codigo_editar >= contador_produtos) {
+                    printf("Erro: Este produto não existe\n\n");
+                } else if(lista_produtos[input_codigo_editar].removido) {
+                    printf("Erro: Este produto já se encontra removido\n\n");
+                } else {
+                    /* Editar aqui */
+                    printf("Produto editado com sucesso!\n\n");
+                }
+                break;
+
+            case 3:
+                if (contador_produtos == 0) {
+                    printf("Não existem produtos\n\n");
+                    break;
+                }
+                printf("Porfavor insira o código do produto que pretende remover... ");
+
+                int input_codigo_remover;
+                ler_input("%d", &input_codigo_remover);
+
+                if(input_codigo_remover < 0 || input_codigo_remover >= contador_produtos) {
+                    printf("Erro: Este produto não existe\n\n");
+                } else if(lista_produtos[input_codigo_remover].removido) {
+                    printf("Erro: Este produto já se encontra removido\n\n");
+                } else {
+                    lista_produtos[input_codigo_remover].removido = 1;
+                    printf("Produto removido com sucesso!\n\n");
+                }
+                break;
+
+            case 4:
+                if (contador_produtos == 0) {
+                    printf("Não existem produtos\n\n");
+                    break;
+                }
+                print_lista_produtos(lista_produtos, contador_produtos);
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                printf("Esta função ainda não está implementada --> %d\n\n", input_menu);
+                break;
+
+            default:
+                printf("Esta opção náo é válida --> %d\n\n", input_menu);
         }
     }
 

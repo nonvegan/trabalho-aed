@@ -13,14 +13,17 @@ int criar_novo_produto(Produto* produto)
 
     printf("\nPorfavor insira o preço do produto... ");
     ler_input("%f", &produto->preco_unitario);
+    limpar_stdin();
 
     printf("\nPorfavor insira o codigo do fornecedor... ");
     ler_input("%u", &produto->id_fornecedor);
+    limpar_stdin();
 
     printf("\nPorfavor insira a quantidade de stock minimo... ");
     ler_input("%d", &produto->quantidade_minima_stock);
+    limpar_stdin();
 
-    produto->ativo = 1;
+    produto->removido = 0;
 
     putchar('\n');
 
@@ -48,7 +51,7 @@ void print_lista_produtos(Produto* lista_produtos, int size)
 
     for (int i = 0; i < size; i++) {
         Produto* produto = lista_produtos + i;
-        if (produto->ativo)
+        if (!produto->removido)
             printf("# %*u | %*s | %*u | %*.3f€ | %*d | %*d #\n",
                 -6,  produto->id,
                 -50, produto->nome,
