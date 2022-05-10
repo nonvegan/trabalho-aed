@@ -14,7 +14,7 @@ void limpar_user_input()
     printf("\033[A\33[2K\n");
 }
 
-void ler_input(char* formato, void* var)
+int ler_input(char* formato, void* var)
 {
-    scanf(formato, var);
+    return scanf(formato, var);
 }

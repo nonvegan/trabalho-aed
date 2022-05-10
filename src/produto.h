@@ -4,8 +4,8 @@
 #include "fornecedor.h"
 
 typedef struct {
-    unsigned int id;
-    unsigned int id_fornecedor;
+    int id;
+    int id_fornecedor;
     char nome[50];
     float preco_unitario;
     int quantidade_stock;

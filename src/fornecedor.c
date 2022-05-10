@@ -17,7 +17,7 @@ int criar_novo_fornecedor(Fornecedor* fornecedor)
 
 void print_lista_fornecedores(Fornecedor* lista_fornecedores, int size)
 {
-    int x = 63;
+    int x = 63, i;
     while (x--) {
         printf("%c", '#');
     }
@@ -26,7 +26,7 @@ void print_lista_fornecedores(Fornecedor* lista_fornecedores, int size)
             -6, "Código",
             -50, "Nome");
 
-    for (int i = 0; i < size; i++) {
+    for (i = 0; i < size; i++) {
         Fornecedor* fornecedor = lista_fornecedores + i;
         printf("# %*u | %*s #\n",
                 -6, fornecedor->id,

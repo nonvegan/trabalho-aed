@@ -2,7 +2,7 @@
 #define FORN_H_
 
 typedef struct {
-    unsigned int id;
+    int id;
     char nome[50];
 } Fornecedor;
 

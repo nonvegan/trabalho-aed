@@ -19,23 +19,25 @@ int criar_novo_produto(Produto* produto, const int contador_fornecedores)
     ler_input("%u", &produto->id_fornecedor);
     limpar_stdin();
 
+    if(produto->id_fornecedor < 0 || produto->id_fornecedor >= contador_fornecedores) {
+        printf("\nEste fornecedor não existe --> %d \n", produto->id_fornecedor);
+        return -1;
+    }
+
     printf("\nPorfavor insira a quantidade de stock minimo... ");
     ler_input("%d", &produto->quantidade_minima_stock);
     limpar_stdin();
-
-    produto->removido = 0;
-
     putchar('\n');
 
-    if (0) { /* Validação de input */
-        return -1;
-    };
+    produto->removido = 0;
 
     return 0;
 }
 
 int editar_produto(Produto *produto, const int contador_fornecedores)
 {
+    int input_menu;
+
     printf("Porfavor insira o campo que pretende editar\n");
     printf("1 - Nome\n");
     printf("2 - Preço Unitário\n");
@@ -43,8 +45,12 @@ int editar_produto(Produto *produto, const int contador_fornecedores)
     printf("4 - Stock minímo\n");
     printf("0 - Cancelar\n");
 
-    int input_menu;
-    ler_input("%d", &input_menu);
+    if(!scanf("%d", &input_menu)) { /* Erro ao ler */
+        limpar_user_input();
+        limpar_stdin();
+        printf("Erro de leitura, porfavor insira uma das opções disponíveis...\n\n");
+        return 1;
+    }
     limpar_user_input();
 
     switch(input_menu) {
@@ -63,9 +69,24 @@ int editar_produto(Produto *produto, const int contador_fornecedores)
             limpar_stdin();
             break;
         case 3:
-            printf("Porfavor insira o codigo do fornecedor... ");
-            ler_input("%u", &produto->id_fornecedor);
-            limpar_stdin();
+            {
+                int id_fornecedor_temp;
+
+                printf("Porfavor insira o codigo do fornecedor... ");
+                if(!ler_input("%u", &id_fornecedor_temp)) {
+                    printf("Erro na leitura de dados, porfavor insira uma das opções disponíveis\n");
+                    limpar_stdin();
+                    return -1;
+                }
+                limpar_stdin();
+
+                if(id_fornecedor_temp < 0 || id_fornecedor_temp >= contador_fornecedores) {
+                    printf("\nEste fornecedor não existe --> %d\n", id_fornecedor_temp);
+                    return -1;
+                }
+
+                produto->id_fornecedor=id_fornecedor_temp;
+            }
             break;
         case 4:
             printf("Porfavor insira a quantidade de stock minimo... ");
@@ -73,18 +94,17 @@ int editar_produto(Produto *produto, const int contador_fornecedores)
             limpar_stdin();
             break;
         default:
-            printf("Esta opção não é válida --> %d\n", input_menu);
+            printf("Esta opção não é válida --> %d\n\n", input_menu);
             return 1;
     }
 
     putchar('\n');
-
     return 0;
 }
 
 void print_lista_produtos(Produto* lista_produtos, int size, Fornecedor* lista_fornecedores)
 {
-    int x = 116;
+    int x = 116, i;
     while (x--) {
         printf("%c", '#');
     }
@@ -97,7 +117,7 @@ void print_lista_produtos(Produto* lista_produtos, int size, Fornecedor* lista_f
             -5, "Stock",
             -10, "Stock Minímo");
 
-    for (int i = 0; i < size; i++) {
+    for (i = 0; i < size; i++) {
         Produto* produto = lista_produtos + i;
         if (!produto->removido)
             printf("# %*u | %*s | %*s | %*.3f€ | %*d | %*d #\n",
