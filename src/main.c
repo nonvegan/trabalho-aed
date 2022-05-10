@@ -68,7 +68,7 @@ int main()
                 putchar('\n');
 
                 if(input_codigo_editar < 0 || input_codigo_editar >= contador_produtos) {
-                    printf("Erro: Este produto não existe\n\n");
+                    printf("Erro: Este produto não existe --> %d \n\n", input_codigo_editar);
                 } else if(lista_produtos[input_codigo_editar].removido) {
                     printf("Erro: Este produto já se encontra removido\n\n");
                 } else if(!editar_produto(lista_produtos + input_codigo_editar, contador_fornecedores))
@@ -84,9 +84,10 @@ int main()
 
                 int input_codigo_remover;
                 ler_input("%d", &input_codigo_remover);
+                putchar('\n');
 
                 if(input_codigo_remover < 0 || input_codigo_remover >= contador_produtos) {
-                    printf("Erro: Este produto não existe\n\n");
+                    printf("Erro: Este produto não existe --> %d\n\n", input_codigo_remover);
                 } else if(lista_produtos[input_codigo_remover].removido) {
                     printf("Erro: Este produto já se encontra removido\n\n");
                 } else {
