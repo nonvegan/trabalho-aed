@@ -12,7 +12,9 @@ int main()
     /* Movimento mov = {1, 5, ENTRADA_PRODUTO, 6, data}; */
 
     Produto lista_produtos[100] = { 0 };
+    Fornecedor lista_fornecedores[100] = { 0 };
     int contador_produtos = 0;
+    int contador_fornecedores = 0;
 
     int quit = 0;
     while (!quit) {
@@ -24,8 +26,9 @@ int main()
         printf("4 - Listar produtos\n");
         printf("5 - Consultar produto\n");
         printf("6 - Adicionar Fornecedor\n");
-        printf("7 - Adicionar Movimento\n");
-        printf("8 - Consultar Movimentos\n");
+        printf("7 - Listar Fornecedores\n");
+        printf("8 - Adicionar Movimento\n");
+        printf("9 - Consultar Movimentos\n");
         printf("0 - Sair\n");
 
         int input_menu;
@@ -101,8 +104,27 @@ int main()
                 break;
             case 5:
             case 6:
+                {
+                    Fornecedor novo_fornecedor = { 0 };
+                    if (criar_novo_fornecedor(&novo_fornecedor))
+                        printf("Ocorreu um erro ao adicionar o fornecedor, porfavor tente novamente\n\n");
+                    else {
+                        unsigned int id = contador_fornecedores++;
+                        novo_fornecedor.id = id;
+                        lista_fornecedores[id] = novo_fornecedor;
+                        printf("Novo fornecedor adicionado com sucesso:\n");
+                    }
+                    print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
+                }
+                break;
             case 7:
-            case 8:
+                if (contador_fornecedores == 0) {
+                    printf("Não existem fornecedores\n\n");
+                    break;
+                }
+                print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
+                break;
+            case 8: case 9:
                 printf("Esta função ainda não está implementada --> %d\n\n", input_menu);
                 break;
 
