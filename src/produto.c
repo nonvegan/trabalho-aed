@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int criar_novo_produto(Produto* produto)
+int criar_novo_produto(Produto* produto, const int contador_fornecedores)
 {
     printf("Porfavor insira o nome do produto... ");
     limpar_stdin();
@@ -34,7 +34,7 @@ int criar_novo_produto(Produto* produto)
     return 0;
 }
 
-int editar_produto(Produto *produto)
+int editar_produto(Produto *produto, const int contador_fornecedores)
 {
     printf("Porfavor insira o campo que pretende editar\n");
     printf("1 - Nome\n");
@@ -82,7 +82,7 @@ int editar_produto(Produto *produto)
     return 0;
 }
 
-void print_lista_produtos(Produto* lista_produtos, int size)
+void print_lista_produtos(Produto* lista_produtos, int size, Fornecedor* lista_fornecedores)
 {
     int x = 116;
     while (x--) {
@@ -100,10 +100,10 @@ void print_lista_produtos(Produto* lista_produtos, int size)
     for (int i = 0; i < size; i++) {
         Produto* produto = lista_produtos + i;
         if (!produto->removido)
-            printf("# %*u | %*s | %*u | %*.3f€ | %*d | %*d #\n",
+            printf("# %*u | %*s | %*s | %*.3f€ | %*d | %*d #\n",
                     -6,  produto->id,
                     -50, produto->nome,
-                    -10, produto->id_fornecedor,
+                    -10, lista_fornecedores[produto->id_fornecedor].nome,
                     -13, produto->preco_unitario,
                     -5,  produto->quantidade_stock,
                     -12, produto->quantidade_minima_stock);

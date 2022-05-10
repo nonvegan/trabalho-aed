@@ -1,6 +1,8 @@
 #ifndef PROD_H_
 #define PROD_H_
 
+#include "fornecedor.h"
+
 typedef struct {
     unsigned int id;
     unsigned int id_fornecedor;
@@ -11,10 +13,10 @@ typedef struct {
     int removido;
 } Produto;
 
-int criar_novo_produto(Produto* produto);
+int criar_novo_produto(Produto* produto, const int contador_fornecedores);
 
-int editar_produto(Produto* produto);
+int editar_produto(Produto* produto, const int contador_fornecedores);
 
-void print_lista_produtos(Produto* lista_produtos, int size);
+void print_lista_produtos(Produto* lista_produtos, int size, Fornecedor* lista_fornecedores);
 
 #endif /* PROD_H_ */

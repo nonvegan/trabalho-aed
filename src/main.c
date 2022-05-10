@@ -43,7 +43,7 @@ int main()
             case 1:
                 {
                     Produto novo_produto = { 0 };
-                    if (criar_novo_produto(&novo_produto))
+                    if (criar_novo_produto(&novo_produto, contador_fornecedores))
                         printf("Ocorreu um erro ao adicionar o produto, porfavor tente novamente\n\n");
                     else {
                         unsigned int id = contador_produtos++;
@@ -51,7 +51,7 @@ int main()
                         lista_produtos[id] = novo_produto;
                         printf("Novo produto adicionado com sucesso:\n");
                     }
-                    print_lista_produtos(lista_produtos, contador_produtos);
+                    print_lista_produtos(lista_produtos, contador_produtos, lista_fornecedores);
                 }
                 break;
 
@@ -71,7 +71,7 @@ int main()
                     printf("Erro: Este produto não existe\n\n");
                 } else if(lista_produtos[input_codigo_editar].removido) {
                     printf("Erro: Este produto já se encontra removido\n\n");
-                } else if(!editar_produto(lista_produtos + input_codigo_editar))
+                } else if(!editar_produto(lista_produtos + input_codigo_editar, contador_fornecedores))
                     printf("Produto editado com sucesso!\n\n");
                 break;
 
@@ -100,7 +100,7 @@ int main()
                     printf("Não existem produtos\n\n");
                     break;
                 }
-                print_lista_produtos(lista_produtos, contador_produtos);
+                print_lista_produtos(lista_produtos, contador_produtos, lista_fornecedores);
                 break;
             case 5:
             case 6:
@@ -112,9 +112,10 @@ int main()
                         unsigned int id = contador_fornecedores++;
                         novo_fornecedor.id = id;
                         lista_fornecedores[id] = novo_fornecedor;
-                        printf("Novo fornecedor adicionado com sucesso:\n");
+                        printf("\nNovo fornecedor adicionado com sucesso:\n");
                     }
                     print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
+                    putchar('\n');
                 }
                 break;
             case 7:
@@ -122,7 +123,10 @@ int main()
                     printf("Não existem fornecedores\n\n");
                     break;
                 }
+
+                puts("Lista de Fornecedores");
                 print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
+                putchar('\n');
                 break;
             case 8: case 9:
                 printf("Esta função ainda não está implementada --> %d\n\n", input_menu);
