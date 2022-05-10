@@ -53,19 +53,23 @@ int main()
                 break;
 
             case 2:
+                if (contador_produtos == 0) {
+                    printf("Não existem produtos\n\n");
+                    break;
+                }
+
                 printf("Porfavor insira o código do produto que editar... ");
 
                 int input_codigo_editar;
                 ler_input("%d", &input_codigo_editar);
+                putchar('\n');
 
                 if(input_codigo_editar < 0 || input_codigo_editar >= contador_produtos) {
                     printf("Erro: Este produto não existe\n\n");
                 } else if(lista_produtos[input_codigo_editar].removido) {
                     printf("Erro: Este produto já se encontra removido\n\n");
-                } else {
-                    /* Editar aqui */
+                } else if(!editar_produto(lista_produtos + input_codigo_editar))
                     printf("Produto editado com sucesso!\n\n");
-                }
                 break;
 
             case 3:

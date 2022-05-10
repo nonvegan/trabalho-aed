@@ -13,6 +13,8 @@ typedef struct {
 
 int criar_novo_produto(Produto* produto);
 
+int editar_produto(Produto* produto);
+
 void print_lista_produtos(Produto* lista_produtos, int size);
 
 #endif /* PROD_H_ */
