@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "aux.h"
+#include "produto.h"
 
 void print_movimento(Movimento* mov)
 {
@@ -15,8 +16,41 @@ void print_movimento(Movimento* mov)
 int criar_novo_movimento(Movimento *novo_mov)
 {
     static int x = 0;
+    int tipo_mov;
+
     novo_mov->id=x++;
     novo_mov->data=data_hoje();
+
+    printf("Porfavor insira o tipo de movimento:\n");
+    printf("1 - Entrada\n");
+    printf("2 - Saída\n");
+
+    if(!scanf("%d", &tipo_mov)) { /* Erro ao ler */
+        limpar_user_input();
+        limpar_stdin();
+        printf("Erro de leitura, porfavor insira uma das opções disponíveis...\n\n");
+        return 1;
+    }
+    limpar_user_input();
+
+    switch(tipo_mov) {
+        case 1:
+            novo_mov->tipo=ENTRADA_PRODUTO;
+            break;
+        case 2:
+            novo_mov->tipo=SAIDA_PRODUTO;
+            break;
+        default:
+            printf("Esta opção não existe -> %d\n", tipo_mov);
+            return 1;
+    }
+
+
+    printf("\nPorfavor insira a quantidade movimenta... ");
+    ler_input("%d", &novo_mov->quantidade);
+    limpar_stdin();
+
+    putchar('\n');
     return 0;
 }
 

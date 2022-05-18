@@ -77,7 +77,7 @@ int main()
                         break;
                     }
 
-                    printf("Porfavor insira o código do produto que editar... ");
+                    printf("Porfavor insira o código do produto que pretende editar... ");
                     ler_input("%d", &input_codigo_editar);
                     putchar('\n');
 
@@ -149,17 +149,34 @@ int main()
             case 8:
                 {
                     Movimento novo_movimento = {0};
+                    int input_codigo_produto;
 
-                    /* if (contador_produtos == 0) { */
-                    /*     printf("Ainda não existem produtos registados, porfavor adicione um antes de adicionar um movimento.\n\n"); */
-                    /*     break; */
-                    /* } */
+                    if (contador_produtos == 0) {
+                        printf("Ainda não existem produtos registados, porfavor adicione um antes de adicionar um movimento.\n\n");
+                        break;
+                    }
 
-                    if (criar_novo_movimento(&novo_movimento))
-                        printf("Ocorreu um erro ao adicionar o movimento, porfavor tente novamente.\n\n");
-                    else {
-                        node_t * novo_node = criar_elemento(novo_movimento);
-                        inserir_node_fim(&lista_movs, novo_node);
+                    printf("Porfavor insira o código do produto que pretende registar um movimento... ");
+                    ler_input("%d", &input_codigo_produto);
+                    putchar('\n');
+
+                    if(input_codigo_produto < 0 || input_codigo_produto >= contador_produtos) {
+                        printf("Erro: Este produto não existe --> %d \n\n", input_codigo_produto);
+                    } else if(lista_produtos[input_codigo_produto].removido) {
+                        printf("Erro: Este produto já se encontra removido\n\n");
+                    } else {
+                        novo_movimento.id_produto = input_codigo_produto;
+                        if (criar_novo_movimento(&novo_movimento))
+                            printf("Ocorreu um erro ao adicionar o movimento, porfavor tente novamente.\n\n");
+                        else {
+                            if(novo_movimento.tipo == ENTRADA_PRODUTO) {
+                                lista_produtos[input_codigo_produto].quantidade_stock += novo_movimento.quantidade;
+                            } else if (novo_movimento.tipo == SAIDA_PRODUTO) {
+                                lista_produtos[input_codigo_produto].quantidade_stock -= novo_movimento.quantidade;
+                            }
+                            node_t * novo_node = criar_elemento(novo_movimento);
+                            inserir_node_fim(&lista_movs, novo_node);
+                        }
                     }
                 }
                 break;
