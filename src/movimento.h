@@ -2,12 +2,12 @@
 #define MOV_H_
 
 #include "aux.h"
+#include "produto.h"
 
 #define ENTRADA_PRODUTO 0
 #define SAIDA_PRODUTO 1
 
 typedef struct {
-    unsigned int id;
     unsigned int id_produto;
     unsigned int tipo;
     unsigned int quantidade;
@@ -25,8 +25,6 @@ node_t* criar_elemento();
 
 void inserir_node_fim(node_t **lista, node_t *elemento);
 
-void print_movimento(Movimento* mov);
-
-void print_lista_movs(node_t *lista_movs);
+void print_lista_movs(node_t *lista_movs, Produto* lista_produtos);
 
 #endif /* MOV_H_ */

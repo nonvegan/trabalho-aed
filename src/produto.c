@@ -134,3 +134,70 @@ void print_lista_produtos(Produto* lista_produtos, int size, Fornecedor* lista_f
     }
     printf("\n\n");
 }
+
+void print_lista_produtos_fornecedor(Produto* lista_produtos, int size,
+        Fornecedor* lista_fornecedores, int id_fornecedor)
+{
+    int x = 116, i;
+    while (x--) {
+        printf("%c", '#');
+    }
+    putchar('\n');
+    printf("# %*s | %*s | %*s | %*s | %*s | %*s #\n",
+            -6, "Código",
+            -50, "Nome",
+            -10, "Fornecedor",
+            -14, "Preço Unitário",
+            -5, "Stock",
+            -10, "Stock Minímo");
+
+    for (i = 0; i < size; i++) {
+        Produto* produto = lista_produtos + i;
+        if (!produto->removido && produto->id_fornecedor == id_fornecedor)
+            printf("# %*u | %*s | %*s | %*.3f€ | %*d | %*d #\n",
+                    -6,  produto->id,
+                    -50, produto->nome,
+                    -10, lista_fornecedores[produto->id_fornecedor].nome,
+                    -13, produto->preco_unitario,
+                    -5,  produto->quantidade_stock,
+                    -12, produto->quantidade_minima_stock);
+    }
+    x = 116;
+    while (x--) {
+        printf("%c", '#');
+    }
+    printf("\n\n");
+}
+
+void print_lista_produtos_falta_stock(Produto* lista_produtos, int size, Fornecedor* lista_fornecedores)
+{
+    int x = 116, i;
+    while (x--) {
+        printf("%c", '#');
+    }
+    putchar('\n');
+    printf("# %*s | %*s | %*s | %*s | %*s | %*s #\n",
+            -6, "Código",
+            -50, "Nome",
+            -10, "Fornecedor",
+            -14, "Preço Unitário",
+            -5, "Stock",
+            -10, "Stock Minímo");
+
+    for (i = 0; i < size; i++) {
+        Produto* produto = lista_produtos + i;
+        if (!produto->removido && produto->quantidade_stock < produto->quantidade_minima_stock)
+            printf("# %*u | %*s | %*s | %*.3f€ | %*d | %*d #\n",
+                    -6,  produto->id,
+                    -50, produto->nome,
+                    -10, lista_fornecedores[produto->id_fornecedor].nome,
+                    -13, produto->preco_unitario,
+                    -5,  produto->quantidade_stock,
+                    -12, produto->quantidade_minima_stock);
+    }
+    x = 116;
+    while (x--) {
+        printf("%c", '#');
+    }
+    printf("\n\n");
+}

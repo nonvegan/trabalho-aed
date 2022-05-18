@@ -6,19 +6,9 @@
 #include "aux.h"
 #include "produto.h"
 
-void print_movimento(Movimento* mov)
-{
-    Data data = mov->data;
-    printf("id -> %u,  %u-%u-%u: id_produto -> %u, %s de %u produtos\n", mov->id, data.ano,
-            data.mes, data.dia, mov->id_produto, mov->tipo ? "Saída" : "Entrada", mov->quantidade);
-}
-
 int criar_novo_movimento(Movimento *novo_mov)
 {
-    static int x = 0;
     int tipo_mov;
-
-    novo_mov->id=x++;
     novo_mov->data=data_hoje();
 
     printf("Porfavor insira o tipo de movimento:\n");
@@ -75,11 +65,32 @@ void inserir_node_fim(node_t **lista, node_t *elemento)
     }
 }
 
-void print_lista_movs(node_t *lista_movs)
+void print_lista_movs(node_t *lista_movs, Produto* lista_produtos)
 {
+    int x = 91;
+    while (x--) {
+        printf("%c", '#');
+    }
+    putchar('\n');
+    printf("# %*s | %*s | %*s | %*s #\n",
+            -10, "Data",
+            -50, "Produto",
+            -8, "Tipo",
+            -10, "Quantidade");
+
     node_t* aux=lista_movs;
     while(aux != NULL) {
-        print_movimento(&aux->mov);
+        printf("# %d-%d-%d%*s | %*s | %*s | %*d #\n",
+                 aux->mov.data.ano, aux->mov.data.mes, aux->mov.data.dia, 1, "",
+                -50, lista_produtos[aux->mov.id_produto].nome,
+                -8, (aux->mov.tipo == ENTRADA_PRODUTO ? "Entrada" : "Saída   "),
+                -10, aux->mov.quantidade);
         aux = aux->next;
     }
+
+    x = 91;
+    while (x--) {
+        printf("%c", '#');
+    }
+    printf("\n\n");
 }

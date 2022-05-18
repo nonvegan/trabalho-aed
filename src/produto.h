@@ -19,4 +19,9 @@ int editar_produto(Produto* produto, const int contador_fornecedores);
 
 void print_lista_produtos(Produto* lista_produtos, int size, Fornecedor* lista_fornecedores);
 
+void print_lista_produtos_fornecedor(Produto* lista_produtos, int size,
+                                     Fornecedor* lista_fornecedores, int id_fornecedor);
+
+void print_lista_produtos_falta_stock(Produto* lista_produtos, int size, Fornecedor* lista_fornecedores);
+
 #endif /* PROD_H_ */
