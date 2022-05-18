@@ -25,11 +25,10 @@ int main()
         printf("2 - Editar produto\n");
         printf("3 - Remover produto\n");
         printf("4 - Listar produtos\n");
-        printf("5 - Consultar produto\n");
-        printf("6 - Adicionar Fornecedor\n");
-        printf("7 - Listar Fornecedores\n");
-        printf("8 - Adicionar Movimento\n");
-        printf("9 - Consultar Movimentos\n");
+        printf("5 - Adicionar Fornecedor\n");
+        printf("6 - Listar Fornecedores\n");
+        printf("7 - Adicionar Movimento\n");
+        printf("8 - Listar Movimentos\n");
         printf("0 - Sair\n");
 
         if(!scanf("%d", &input_menu)) { /* Erro ao ler */
@@ -118,7 +117,7 @@ int main()
                 }
                 print_lista_produtos(lista_produtos, contador_produtos, lista_fornecedores);
                 break;
-            case 6: /* Adicionar fornecedor */
+            case 5: /* Adicionar fornecedor */
                 {
                     Fornecedor novo_fornecedor = {0};
                     if (criar_novo_fornecedor(&novo_fornecedor))
@@ -133,7 +132,7 @@ int main()
                     putchar('\n');
                 }
                 break;
-            case 7: /* Listar fornecedores */
+            case 6: /* Listar fornecedores */
                 if (contador_fornecedores == 0) {
                     printf("Não existem fornecedores, porfavor adicione um primeiro.\n\n");
                     break;
@@ -143,7 +142,7 @@ int main()
                 print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
                 putchar('\n');
                 break;
-            case 8: /* Adicionar movimento */
+            case 7: /* Adicionar movimento */
                 {
                     Movimento novo_movimento = {0};
                     int input_codigo_produto;
@@ -171,6 +170,7 @@ int main()
                             } else if (novo_movimento.tipo == SAIDA_PRODUTO) {
                                 lista_produtos[input_codigo_produto].quantidade_stock -= novo_movimento.quantidade;
                             }
+
                             node_t * novo_node = criar_elemento(novo_movimento);
                             inserir_node_fim(&lista_movs, novo_node);
                         }
@@ -178,7 +178,7 @@ int main()
                 }
                 break;
 
-            case 9: /* Listar movimentos */
+            case 8: /* Listar movimentos */
                 if (lista_movs == NULL) {
                     printf("Não existem movimentos, porfavor adicione um primeiro.\n\n");
                     break;
