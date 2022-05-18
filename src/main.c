@@ -8,9 +8,6 @@
 
 int main()
 {
-    /* Data data = {2022, 3, 28}; */
-    /* Movimento mov = {1, 5, ENTRADA_PRODUTO, 6, data}; */
-
     Produto lista_produtos[100] = { 0 };
     int contador_produtos = 0;
 
@@ -48,9 +45,9 @@ int main()
                 quit = 1;
                 break;
 
-            case 1:
+            case 1: /* Adicionar produto */
                 {
-                    Produto novo_produto = { 0 };
+                    Produto novo_produto = {0};
                     if (contador_fornecedores == 0) {
                         printf("Ainda não existem fornecedores registados, porfavor adicione um antes de adicionar um produto.\n\n");
                         break;
@@ -68,7 +65,7 @@ int main()
                 }
                 break;
 
-            case 2:
+            case 2: /* Editar produto */
                 {
                     int input_codigo_editar;
 
@@ -90,7 +87,7 @@ int main()
                 }
                 break;
 
-            case 3:
+            case 3: /* Remover produto */
                 {
                     int input_codigo_remover;
 
@@ -114,16 +111,16 @@ int main()
                 }
                 break;
 
-            case 4:
+            case 4: /* Listar produtos */
                 if (contador_produtos == 0) {
                     printf("Não existem produtos, porfavor adicione um primeiro.\n\n");
                     break;
                 }
                 print_lista_produtos(lista_produtos, contador_produtos, lista_fornecedores);
                 break;
-            case 6:
+            case 6: /* Adicionar fornecedor */
                 {
-                    Fornecedor novo_fornecedor = { 0 };
+                    Fornecedor novo_fornecedor = {0};
                     if (criar_novo_fornecedor(&novo_fornecedor))
                         printf("Ocorreu um erro ao adicionar o fornecedor, porfavor tente novamente.\n\n");
                     else {
@@ -136,7 +133,7 @@ int main()
                     putchar('\n');
                 }
                 break;
-            case 7:
+            case 7: /* Listar fornecedores */
                 if (contador_fornecedores == 0) {
                     printf("Não existem fornecedores, porfavor adicione um primeiro.\n\n");
                     break;
@@ -146,7 +143,7 @@ int main()
                 print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
                 putchar('\n');
                 break;
-            case 8:
+            case 8: /* Adicionar movimento */
                 {
                     Movimento novo_movimento = {0};
                     int input_codigo_produto;
@@ -181,7 +178,7 @@ int main()
                 }
                 break;
 
-            case 9:
+            case 9: /* Listar movimentos */
                 if (lista_movs == NULL) {
                     printf("Não existem movimentos, porfavor adicione um primeiro.\n\n");
                     break;
@@ -189,10 +186,6 @@ int main()
 
                 puts("Lista de Movimentos:");
                 print_lista_movs(lista_movs);
-                break;
-
-            case 5:
-                printf("Esta função ainda não está implementada --> %d\n\n", input_menu);
                 break;
 
             default:
