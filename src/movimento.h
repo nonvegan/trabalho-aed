@@ -23,13 +23,10 @@ int criar_novo_movimento(Movimento* novo_mov);
 
 node_t* criar_elemento();
 
-void inserir_node_inicio(node_t **lista, node_t *elemento);
-
 void inserir_node_fim(node_t **lista, node_t *elemento);
 
 void print_movimento(Movimento* mov);
 
 void print_lista_movs(node_t *lista_movs);
-
 
 #endif /* MOV_H_ */

@@ -20,7 +20,6 @@ int criar_novo_movimento(Movimento *novo_mov)
     return 0;
 }
 
-
 node_t* criar_elemento(Movimento mov)
 {
     node_t* node = malloc(sizeof(node_t));
