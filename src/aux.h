@@ -15,4 +15,6 @@ void limpar_user_input();
 
 int ler_input(char* formato, void* var);
 
+Data data_hoje();
+
 #endif /* AUX_H_ */

@@ -17,6 +17,8 @@ int main()
     Fornecedor lista_fornecedores[100] = { 0 };
     int contador_fornecedores = 0;
 
+    node_t* lista_movs = NULL;
+
     int quit = 0;
     while (!quit) {
         int input_menu;
@@ -144,7 +146,35 @@ int main()
                 print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
                 putchar('\n');
                 break;
-            case 5: case 8: case 9:
+            case 8:
+                {
+                    Movimento novo_movimento = {0};
+
+                    /* if (contador_produtos == 0) { */
+                    /*     printf("Ainda não existem produtos registados, porfavor adicione um antes de adicionar um movimento.\n\n"); */
+                    /*     break; */
+                    /* } */
+
+                    if (criar_novo_movimento(&novo_movimento))
+                        printf("Ocorreu um erro ao adicionar o movimento, porfavor tente novamente.\n\n");
+                    else {
+                        node_t * novo_node = criar_elemento(novo_movimento);
+                        inserir_node_fim(&lista_movs, novo_node);
+                    }
+                }
+                break;
+
+            case 9:
+                if (lista_movs == NULL) {
+                    printf("Não existem movimentos, porfavor adicione um primeiro.\n\n");
+                    break;
+                }
+
+                puts("Lista de Movimentos:");
+                print_lista_movs(lista_movs);
+                break;
+
+            case 5:
                 printf("Esta função ainda não está implementada --> %d\n\n", input_menu);
                 break;
 
