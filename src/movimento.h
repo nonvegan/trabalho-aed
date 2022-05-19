@@ -27,4 +27,6 @@ void inserir_node_fim(node_t **lista, node_t *elemento);
 
 void print_lista_movs(node_t *lista_movs, Produto* lista_produtos);
 
+void print_lista_movs_intervalo(node_t *lista_movs, Produto* lista_produtos, Data d1, Data d2);
+
 #endif /* MOV_H_ */

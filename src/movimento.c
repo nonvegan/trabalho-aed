@@ -81,10 +81,41 @@ void print_lista_movs(node_t *lista_movs, Produto* lista_produtos)
     node_t* aux=lista_movs;
     while(aux != NULL) {
         printf("# %d-%d-%d%*s | %*s | %*s | %*d #\n",
-                 aux->mov.data.ano, aux->mov.data.mes, aux->mov.data.dia, 1, "",
+                aux->mov.data.ano, aux->mov.data.mes, aux->mov.data.dia, 1, "",
                 -50, lista_produtos[aux->mov.id_produto].nome,
                 -8, (aux->mov.tipo == ENTRADA_PRODUTO ? "Entrada" : "Saída   "),
                 -10, aux->mov.quantidade);
+        aux = aux->next;
+    }
+
+    x = 91;
+    while (x--) {
+        printf("%c", '#');
+    }
+    printf("\n\n");
+}
+
+void print_lista_movs_intervalo(node_t *lista_movs, Produto* lista_produtos, Data d1, Data d2)
+{
+    int x = 91;
+    while (x--) {
+        printf("%c", '#');
+    }
+    putchar('\n');
+    printf("# %*s | %*s | %*s | %*s #\n",
+            -10, "Data",
+            -50, "Produto",
+            -8, "Tipo",
+            -10, "Quantidade");
+
+    node_t* aux=lista_movs;
+    while(aux != NULL) {
+        if(data_epoch_segs(d1) <= data_epoch_segs(aux->mov.data) && data_epoch_segs(aux->mov.data) <= data_epoch_segs(d2))
+            printf("# %d-%d-%d%*s | %*s | %*s | %*d #\n",
+                    aux->mov.data.ano, aux->mov.data.mes, aux->mov.data.dia, 1, "",
+                    -50, lista_produtos[aux->mov.id_produto].nome,
+                    -8, (aux->mov.tipo == ENTRADA_PRODUTO ? "Entrada" : "Saída   "),
+                    -10, aux->mov.quantidade);
         aux = aux->next;
     }
 
