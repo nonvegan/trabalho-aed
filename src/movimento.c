@@ -36,7 +36,7 @@ int criar_novo_movimento(Movimento *novo_mov)
     }
 
 
-    printf("\nPorfavor insira a quantidade movimenta... ");
+    printf("Porfavor insira a quantidade movimentada... ");
     ler_input("%d", &novo_mov->quantidade);
     limpar_stdin();
 
@@ -81,7 +81,7 @@ void print_lista_movs(node_t *lista_movs, Produto* lista_produtos)
     node_t* aux=lista_movs;
     while(aux != NULL) {
         printf("# %d-%d-%d%*s | %*s | %*s | %*d #\n",
-                aux->mov.data.ano, aux->mov.data.mes, aux->mov.data.dia, 1, "",
+                aux->mov.data.dia, aux->mov.data.mes, aux->mov.data.ano, 1, "",
                 -50, lista_produtos[aux->mov.id_produto].nome,
                 -8, (aux->mov.tipo == ENTRADA_PRODUTO ? "Entrada" : "Saída   "),
                 -10, aux->mov.quantidade);
@@ -112,7 +112,7 @@ void print_lista_movs_intervalo(node_t *lista_movs, Produto* lista_produtos, Dat
     while(aux != NULL) {
         if(data_epoch_segs(d1) <= data_epoch_segs(aux->mov.data) && data_epoch_segs(aux->mov.data) <= data_epoch_segs(d2))
             printf("# %d-%d-%d%*s | %*s | %*s | %*d #\n",
-                    aux->mov.data.ano, aux->mov.data.mes, aux->mov.data.dia, 1, "",
+                    aux->mov.data.dia, aux->mov.data.mes, aux->mov.data.ano, 1, "",
                     -50, lista_produtos[aux->mov.id_produto].nome,
                     -8, (aux->mov.tipo == ENTRADA_PRODUTO ? "Entrada" : "Saída   "),
                     -10, aux->mov.quantidade);

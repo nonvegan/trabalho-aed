@@ -32,6 +32,7 @@ int main()
         printf(" 8 - Listar Fornecedores\n");
         printf(" 9 - Adicionar Movimento\n");
         printf("10 - Listar Movimentos\n");
+        printf("11 - Listar Movimentos por intervalo de tempo\n");
 
         if(!scanf("%d", &input_menu)) { /* Erro ao ler */
             limpar_user_input();
@@ -179,7 +180,7 @@ int main()
                     break;
                 }
 
-                puts("Lista de Fornecedores");
+                puts("Lista de Fornecedores:");
                 print_lista_fornecedores(lista_fornecedores, contador_fornecedores);
                 putchar('\n');
                 break;
@@ -189,7 +190,7 @@ int main()
                     int input_codigo_produto;
 
                     if (contador_produtos == 0) {
-                        printf("Não existem movimentos, porfavor adicione um primeiro.\n\n");
+                        printf("Não existem produtos, porfavor adicione um primeiro antes de adicionar um movimento.\n\n");
                         break;
                     }
 
@@ -227,6 +228,26 @@ int main()
 
                 puts("Lista de Movimentos:");
                 print_lista_movs(lista_movs, lista_produtos);
+                break;
+            case 11: /* Listar movimentos por intervalo de tempo*/
+                {
+                    Data d1, d2;
+                    if (lista_movs == NULL) {
+                        printf("Não existem movimentos, porfavor adicione um primeiro.\n\n");
+                        break;
+                    }
+
+                    printf("Porfavor insira a data de início:\n");
+                    if(criar_data(&d1))
+                        break;
+
+                    printf("Porfavor insira a data de fim:\n");
+                    if(criar_data(&d2))
+                        break;
+
+                    printf("Lista de Movimentos desde %d-%d-%d até %d-%d-%d:\n",d1.dia, d1.mes, d1.ano, d2.dia, d2.mes, d2.ano);
+                    print_lista_movs_intervalo(lista_movs, lista_produtos, d1, d2);
+                }
                 break;
 
             default:

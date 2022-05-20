@@ -19,6 +19,8 @@ int ler_input(char* formato, void* var);
 
 Data data_hoje();
 
+int criar_data(Data* data);
+
 time_t data_epoch_segs(Data data);
 
 #endif /* AUX_H_ */
