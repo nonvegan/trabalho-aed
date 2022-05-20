@@ -1,6 +1,6 @@
 #include "produto.h"
 
-#include "aux.h"
+#include "auxiliar.h"
 #include <stdio.h>
 #include <string.h>
 

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "aux.h"
+#include "auxiliar.h"
 
 int criar_novo_fornecedor(Fornecedor* fornecedor)
 {

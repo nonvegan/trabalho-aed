@@ -1,7 +1,7 @@
 #ifndef MOV_H_
 #define MOV_H_
 
-#include "aux.h"
+#include "auxiliar.h"
 #include "produto.h"
 
 #define ENTRADA_PRODUTO 0

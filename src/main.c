@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "aux.h"
+#include "auxiliar.h"
 #include "fornecedor.h"
 #include "movimento.h"
 #include "produto.h"

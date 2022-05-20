@@ -1,7 +1,7 @@
 #ifndef AUX_H_
 #define AUX_H_
 
-#include "aux.h"
+#include "auxiliar.h"
 
 #include <time.h>
 

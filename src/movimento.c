@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "aux.h"
+#include "auxiliar.h"
 #include "produto.h"
 
 int criar_novo_movimento(Movimento *novo_mov)
